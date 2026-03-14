@@ -3,7 +3,10 @@
 # Author: cherifVN
 # Source: https://github.com/cherifVN/audiorelay-virtual-sink
 
-pactl load-module module-null-sink sink_name=VirtualSink sink_properties=device.description="VirtualSink"
+# Check if VirtualSink already exists
+if ! pactl list short sinks | grep -q "VirtualSink"; then
+    pactl load-module module-null-sink sink_name=VirtualSink sink_properties=device.description="VirtualSink"
+fi
 
 pactl set-default-sink VirtualSink
 
